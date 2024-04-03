@@ -1,6 +1,3 @@
-from rest_framework import status
-from .serializers import AdminSerializer, ClientSerializer
-
 from .models import Admin, Client
 from rest_framework import viewsets
 from .serializers import AdminSerializer, ClientSerializer
