@@ -1,6 +1,9 @@
+from rest_framework import status
+from .serializers import AdminSerializer, ClientSerializer
+
 from .models import Admin, Client
 from rest_framework import viewsets
-from .serializer import AdminSerializer, ClientSerializer
+from .serializers import AdminSerializer, ClientSerializer
 
 class AdminView(viewsets.ModelViewSet):
     serializer_class = AdminSerializer
@@ -9,3 +12,4 @@ class AdminView(viewsets.ModelViewSet):
 class ClientView(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
     queryset = Client.objects.all()
+
