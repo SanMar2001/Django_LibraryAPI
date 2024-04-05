@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import '../index.css'; // Importa el archivo index.css ubicado al mismo nivel que la carpeta pages
+import axios from "axios";
+import { Link } from 'react-router-dom';
+import '../index.css'; 
 
-export function RegisterPage() {
+export function AdminLoginPage() {
     const [formData, setFormData] = useState({
         username: '',
-        email: '',
         password: ''
     });
 
@@ -16,19 +17,23 @@ export function RegisterPage() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // Aquí puedes enviar los datos de registro al backend o hacer otras acciones necesarias
-        console.log(formData);
+        try {
+            const response = await axios.post("http://localhost:8000/users/admins/", formData);
+            console.log(response.data);
+            // Redirigir al usuario a la página deseada después del inicio de sesión exitoso
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        }
     };
 
     return (
         <div className="container">
-            <div className="register-content">
-                <h1>Registro de Usuarios</h1>
-            </div>
             <div className="form-box">
-                <form onSubmit={handleSubmit}>
+                <h1>Iniciar Sesión como Administrador</h1>
+                <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <input 
                             type="text" 
@@ -37,17 +42,6 @@ export function RegisterPage() {
                             value={formData.username} 
                             onChange={handleChange} 
                             placeholder="Nombre de Usuario"
-                            required 
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            value={formData.email} 
-                            onChange={handleChange} 
-                            placeholder="Correo Electrónico"
                             required 
                         />
                     </div>
@@ -62,7 +56,7 @@ export function RegisterPage() {
                             required 
                         />
                     </div>
-                    <button type="submit">Registrarse</button>
+                    <button type="submit">Iniciar Sesión</button>
                 </form>
             </div>
         </div>

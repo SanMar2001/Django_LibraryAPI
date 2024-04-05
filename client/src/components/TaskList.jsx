@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { getAllTask } from "../api/task.api";
+import { UserCard } from "./UserCard";
 
 
 export function TaskList() {
@@ -21,10 +22,7 @@ export function TaskList() {
 
     return <div>
         {users.map(user => (
-            <div>
-                <h1>{user}</h1>
-                <p>{user}</p>
-            </div>
+           <UserCard key={user.id} user={user}/>
         ))}
         </div>
 

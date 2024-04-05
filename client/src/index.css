@@ -1,4 +1,111 @@
-body{
-  background: #202020;
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px; /* Agregamos un poco de espacio alrededor del contenido */
+}
+
+.form-box {
+  width: 100%;
+  max-width: 600px; /* Limitamos el ancho máximo para evitar que se vea demasiado largo */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 20px; /* Agregamos un poco de espacio alrededor del formulario */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+select {
+  appearance: none;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #007bff;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  margin-top: 10px; /* Añadimos espacio entre el botón y los elementos anteriores */
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+label {
+  display: block;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons button {
+  width: 100%;
+  padding: 12px 24px;
+  margin-bottom: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.buttons button:hover {
+  background-color: #0056b3;
+}
+
+.buttons .forgot {
+  /* Estilos específicos para el botón con la clase forgot */
+  width: auto; /* Ancho automático según el contenido */
+  padding: 0;
+  margin-bottom: 0;
+  background-color: transparent; /* Fondo transparente */
+  color: #007bff; /* Color azul */
+  border: none;
+  font-size: 14px; /* Tamaño de fuente */
+  text-decoration: underline; /* Subrayado */
+  cursor: pointer;
+}
+
+.buttons .forgot:hover {
+  background-color: transparent; /* Mantener el fondo transparente al pasar el ratón */
 }
