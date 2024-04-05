@@ -5,7 +5,6 @@ import '../index.css';
 
 export function RegisterPage() {
     const [formData, setFormData] = useState({
-        username: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -30,7 +29,22 @@ export function RegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8000/users/clients/", formData);
+            const userData = {
+                user: {
+                    username: formData.email,
+                    password: formData.password
+                },
+                dni: formData.dni,
+                names: formData.name,
+                surnames: formData.surname,
+                birthdate: formData.birthdate,
+                birthplace: formData.birthplace,
+                address: formData.address,
+                gender: formData.gender,
+                fav_topics: formData.favTopics
+            };
+
+            const response = await axios.post("http://localhost:8000/users/clients/", userData);
             console.log(response.data);
             // Redirigir a la página /task-create después de un registro exitoso
             window.location.href = '/task-create';
@@ -46,17 +60,7 @@ export function RegisterPage() {
             <div className="form-box">
                 <h1>Registro de Usuario</h1>
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <input 
-                            type="text" 
-                            id="username" 
-                            name="username" 
-                            value={formData.username} 
-                            onChange={handleChange} 
-                            placeholder="Nombre de Usuario"
-                            required 
-                        />
-                    </div>
+
                     <div className="form-group">
                         <input 
                             type="email" 

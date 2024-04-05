@@ -1,25 +1,34 @@
 import { useState } from 'react';
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { createTask } from "../api/task.api";
+import axios from "axios";
+import '../index.css'; 
 
 export function TaskFormPage() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [errorMessage, setErrorMessage] = useState('');
+    const [formData, setFormData] = useState({
+        username: '',
+        password: ''
+    });
 
-    const onSubmit = async (data) => {
-        try {
-            const response = await createTask(data); // Utiliza la función createTask para enviar los datos
-            // Aquí puedes manejar la respuesta de tu API
-            console.log(response.data);
-        } catch (error) {
-            // Si hay un error en la solicitud, puedes mostrar un mensaje de error
-            setErrorMessage('Error al crear la tarea. Por favor, verifica los datos ingresados.');
-        }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
-    const handleAdminLogin = () => {
-        // Lógica para manejar el inicio de sesión del administrador
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:8000/users/login/", formData);
+            console.log(response.data);
+            // Si la respuesta es exitosa, redirigir al usuario a otra página
+            if (response.status === 200) {
+                window.location.href = "/logout"; // Redireccionar a la página de logout
+            }
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        }
     };
 
     const handleForgotPassword = () => {
@@ -29,38 +38,39 @@ export function TaskFormPage() {
     return (
         <div className="container">
             <div className="form-box">
-                <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
+                <h1>Iniciar Sesión</h1>
+                <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <input 
                             type="text" 
                             id="username" 
                             name="username" 
-                            placeholder="Username"
-                            {...register("username", { required: true })} 
+                            value={formData.username} 
+                            onChange={handleChange} 
+                            placeholder="Nombre de Usuario"
+                            required 
                         />
-                        {errors.username && <span className="error-message">Username es requerido</span>}
                     </div>
                     <div className="form-group">
                         <input 
                             type="password" 
                             id="password" 
                             name="password" 
-                            placeholder="Password"
-                            {...register("password", { required: true })} 
+                            value={formData.password} 
+                            onChange={handleChange} 
+                            placeholder="Contraseña"
+                            required 
                         />
-                        {errors.password && <span className="error-message">Password es requerido</span>}
                     </div>
-                    {errorMessage && <span className="error-message">{errorMessage}</span>}
-                    <div className="form-group">
-                        <button type="submit" className="login-button">Login</button>
-                    </div>
-                </form>
                 <div className='buttons'>
-                    <Link to={"/register"}><button>Registrarse</button></Link>
-                    <Link to={"/adminlogin"}><button>Login de Administrador</button></Link>
+                    <button type="submit">Iniciar Sesión</button>
+                    <button onClick={() => window.location.href = "/register"}>Registrarse</button>
                     <button className="forgot" onClick={handleForgotPassword}>Has olvidado tu contraseña?</button>
-                </div>
+                </div>    
+                </form>
+                
             </div>
         </div>
     );
 }
+

@@ -5,6 +5,8 @@ import { Navigate } from "react-router-dom";
 import { Navigation } from "./components/Navigation";
 import { RegisterPage } from "./pages/RegisterPage";
 import { AdminLoginPage } from "./pages/AdminLoginPage";
+import  LogoutPage  from "./pages/LogoutPage";
+
 
 function App() {
   return(
@@ -14,11 +16,12 @@ function App() {
     <Navigation/>
 
       <Routes> 
-        <Route path="/" element={<Navigate to="/task" />} />
-        <Route path="/task" element={<TaskPage />} />
-        <Route path="/task-create" element={<TaskFormPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/adminlogin" element={<AdminLoginPage />} />
+        <Route key="index" path="/" element={<Navigate to="/task" />} />
+        <Route key="task" path="/task" element={<TaskPage />} />
+        <Route key="logout" path="/logout" element={<LogoutPage />} />
+        <Route key="taskcreate" path="/task-create" element={<TaskFormPage />} />
+        <Route key="register" path="/register" element={<RegisterPage />} />
+        <Route key="adminlogin" path="/adminlogin" element={<AdminLoginPage />} />
       </Routes>
       
     </BrowserRouter>
