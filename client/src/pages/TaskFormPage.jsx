@@ -23,7 +23,10 @@ export function TaskFormPage() {
             console.log(response.data);
             // Si la respuesta es exitosa, redirigir al usuario a otra página
             if (response.status === 200) {
-                window.location.href = "/logout"; // Redireccionar a la página de logout
+                // Almacenar el token de acceso en el almacenamiento local
+                localStorage.setItem('accessToken', response.data.access);
+                // Redirigir al usuario a otra página
+                window.location.href = "/logout"; // Por ejemplo, redireccionar a la página de dashboard
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
@@ -62,15 +65,13 @@ export function TaskFormPage() {
                             required 
                         />
                     </div>
-                <div className='buttons'>
-                    <button type="submit">Iniciar Sesión</button>
-                    <button onClick={() => window.location.href = "/register"}>Registrarse</button>
-                    <button className="forgot" onClick={handleForgotPassword}>Has olvidado tu contraseña?</button>
-                </div>    
+                    <div className='buttons'>
+                        <button type="submit">Iniciar Sesión</button>
+                        <button onClick={() => window.location.href = "/register"}>Registrarse</button>
+                        <button className="forgot" onClick={handleForgotPassword}>Has olvidado tu contraseña?</button>
+                    </div>    
                 </form>
-                
             </div>
         </div>
     );
 }
-

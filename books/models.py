@@ -2,8 +2,8 @@ from django.db import models
 
 # Create your models here.
 class Store(models.Model):
-    address = models.CharField(max_length=80)
-    schedule = models.CharField(max_length=80)
+    address = models.CharField(max_length=100)
+    schedule = models.CharField(max_length=100)
 
 class Book(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
@@ -18,5 +18,5 @@ class Book(models.Model):
     pubDate = models.DateField(null=False)
     condition = models.CharField(max_length=20, blank=False)
     price = models.PositiveIntegerField(null=False)
-    reserved = models.BooleanField()
-    sold = models.BooleanField()
+    reserved = models.BooleanField(default=False, blank=True)
+    sold = models.BooleanField(default=False, blank=True)

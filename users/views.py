@@ -4,9 +4,15 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate, logout
-from .models import Admin, Client
+from .models import Admin, Client, Root
 from rest_framework import viewsets
-from .serializers import AdminSerializer, ClientSerializer
+from .serializers import AdminSerializer, ClientSerializer, RootSerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import AllowAny
+
+class RootView(viewsets.ModelViewSet):
+    serializer_class = RootSerializer
+    queryset = Root.objects.all()
 
 class AdminView(viewsets.ModelViewSet):
     serializer_class = AdminSerializer
@@ -17,6 +23,8 @@ class ClientView(viewsets.ModelViewSet):
     queryset = Client.objects.all()
 
 class LoginView(APIView):
+    permission_classes = [AllowAny]  # Permitir acceso a usuarios no autenticados
+
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
@@ -29,10 +37,11 @@ class LoginView(APIView):
                 'refresh': str(refresh),
             })
         else:
-            return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
-        
+            return Response({'error': 'Nombre de usuario o contraseña incorrectos'}, status=status.HTTP_401_UNAUTHORIZED)
+
 class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]  # Requiere autenticación JWT
+    permission_classes = [IsAuthenticated]  # Requiere autenticación
 
     def post(self, request):
         logout(request)
