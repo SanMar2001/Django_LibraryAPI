@@ -1,23 +1,28 @@
-
-
+/* Estilos generales */
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
   background-color: #f0f0f0;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 20px; /* Agregamos un poco de espacio alrededor del contenido */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Ajuste de la posición del contenido principal para evitar que quede oculto detrás de la barra de navegación */
+.container.content {
+  padding-top: 80px; /* Ajusta según sea necesario para evitar que el contenido quede detrás de la barra de navegación */
+}
+
+/* Estilos para el formulario */
 .form-box {
   width: 100%;
-  max-width: 600px; /* Limitamos el ancho máximo para evitar que se vea demasiado largo */
+  max-width: 600px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
-  margin: 20px; /* Agregamos un poco de espacio alrededor del formulario */
+  margin: 20px;
 }
 
 .form-group {
@@ -40,7 +45,9 @@ select {
   appearance: none;
 }
 
-button[type="submit"] {
+button[type="submit"],
+.buttons button,
+.buttons .forgot {
   width: 100%;
   padding: 12px 24px;
   background-color: #007bff;
@@ -52,10 +59,10 @@ button[type="submit"] {
   font-weight: bold;
   text-transform: uppercase;
   transition: background-color 0.3s ease;
-  margin-top: 10px; /* Añadimos espacio entre el botón y los elementos anteriores */
+  margin-top: 10px;
 }
 
-button[type="submit"]:hover {
+.buttons button:hover {
   background-color: #0056b3;
 }
 
@@ -68,44 +75,67 @@ label {
   display: block;
 }
 
-.buttons {
+/* Estilos para la barra de navegación */
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; /* Alinea verticalmente los elementos */
+  border-bottom: 2px solid #555; /* Grosor de la barra de navegación */
+}
+
+/* Ajuste de la posición del contenido principal para evitar que quede oculto detrás de la barra de navegación */
+.container.content {
+  padding-top: 80px; /* Ajusta según sea necesario para evitar que el contenido quede detrás de la barra de navegación */
+}
+
+/* Alineación vertical de los elementos de la barra de navegación */
+.navigation-links {
+  display: flex;
   align-items: center;
 }
 
-.buttons button {
+.navigation ul {
+  list-style: none;
+  padding: 5px;
+  display: flex; /* Mostrar los elementos como flexbox */
+  margin-left: 10px;
+}
+
+.navigation a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navigation a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para el footer */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  padding: 12px 24px;
-  margin-bottom: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: background-color 0.3s ease;
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
 }
 
-.buttons button:hover {
-  background-color: #0056b3;
+/* Estilo de tipografía bonita */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.buttons .forgot {
-  /* Estilos específicos para el botón con la clase forgot */
-  width: auto; /* Ancho automático según el contenido */
-  padding: 0;
-  margin-bottom: 0;
-  background-color: transparent; /* Fondo transparente */
-  color: #007bff; /* Color azul */
-  border: none;
-  font-size: 14px; /* Tamaño de fuente */
-  text-decoration: underline; /* Subrayado */
-  cursor: pointer;
-}
-
-.buttons .forgot:hover {
-  background-color: transparent; /* Mantener el fondo transparente al pasar el ratón */
+.logo {
+  height: 30px; /* Ajusta la altura del logo según sea necesario */
 }
