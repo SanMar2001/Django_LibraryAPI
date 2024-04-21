@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import Select from 'react-select';
 import { Link } from 'react-router-dom';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import '../index.css'; 
+import countryOptions from '../components/conuntries.js'; // Importa la lista de países manualmente
 
 export function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -18,11 +22,17 @@ export function RegisterPage() {
         address: ''
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    const handleChange = (selectedOption) => {
         setFormData(prevState => ({
             ...prevState,
-            [name]: value
+            birthplace: selectedOption.value
+        }));
+    };
+
+    const handleChangeDate = (date) => {
+        setFormData(prevState => ({
+            ...prevState,
+            birthdate: date
         }));
     };
 
@@ -53,14 +63,11 @@ export function RegisterPage() {
         }
     };
 
-
     return (
         <div className="container">
-
             <div className="form-box">
                 <h1>Registro de Usuario</h1>
                 <form onSubmit={handleSubmit}>
-
                     <div className="form-group">
                         <input 
                             type="email" 
@@ -117,23 +124,28 @@ export function RegisterPage() {
                         />
                     </div>
                     <div className="form-group">
-                        <input 
-                            type="text" 
-                            id="birthdate" 
-                            name="birthdate" 
-                            value={formData.birthdate} 
-                            onChange={handleChange} 
-                            placeholder="Fecha de Nacimiento (YYYY-MM-DD)"
-                            required 
+                        <label htmlFor="birthdate"></label>
+                        <DatePicker
+                            id="birthdate"
+                            selected={formData.birthdate}
+                            onChange={handleChangeDate}
+                            dateFormat="yyyy-MM-dd"
+                            maxDate={new Date()} // Establece la fecha máxima como la fecha actual
+                            showYearDropdown
+                            scrollableYearDropdown
+                            yearDropdownItemNumber={100} // Muestra un rango de 100 años hacia atrás
+                            placeholderText="Fecha de Nacimiento"
+                            required
                         />
                     </div>
                     <div className="form-group">
-                        <input 
-                            type="text" 
+                        <label htmlFor="birthplace"></label>
+                        <Select 
                             id="birthplace" 
                             name="birthplace" 
-                            value={formData.birthplace} 
+                            value={countryOptions.find(option => option.value === formData.birthplace)}
                             onChange={handleChange} 
+                            options={countryOptions} 
                             placeholder="Lugar de Nacimiento"
                             required 
                         />
