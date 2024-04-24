@@ -25,7 +25,7 @@ function LogoutPage() {
             localStorage.removeItem('type');
 
             // Redirigimos al usuario a la página de inicio de sesión
-            window.location.href = '/login';
+            window.location.href = '/task-create';
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
         }
