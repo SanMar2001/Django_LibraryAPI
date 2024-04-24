@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate, logout
+from django.contrib.auth.models import User
 from .models import Admin, Client, Root
 from rest_framework import viewsets
 from .serializers import AdminSerializer, ClientSerializer, RootSerializer
@@ -28,13 +29,20 @@ class LoginView(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-
+        
         user = authenticate(username=username, password=password)
         if user:
+            if Root.objects.filter(user=User.objects.get(username=request.data.get('username'))).exists():
+                user_type = 'root'
+            elif Admin.objects.filter(user=User.objects.get(username=request.data.get('username'))).exists():
+                user_type = 'admin'
+            elif Client.objects.filter(user=User.objects.get(username=request.data.get('username'))).exists():
+                user_type = 'client'
             refresh = RefreshToken.for_user(user)
             return Response({
                 'access': str(refresh.access_token),
                 'refresh': str(refresh),
+                'type': str(user_type)
             })
         else:
             return Response({'error': 'Nombre de usuario o contraseña incorrectos'}, status=status.HTTP_401_UNAUTHORIZED)

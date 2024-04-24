@@ -25,6 +25,7 @@ export function TaskFormPage() {
             if (response.status === 200) {
                 // Almacenar el token de acceso en el almacenamiento local
                 localStorage.setItem('accessToken', response.data.access);
+                localStorage.setItem('type', response.data.type);
                 // Redirigir al usuario a otra página
                 window.location.href = "/logout"; // Por ejemplo, redireccionar a la página de dashboard
             }
