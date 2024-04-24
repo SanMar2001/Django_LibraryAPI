@@ -16,17 +16,29 @@ export function RegisterPage() {
         surname: '',
         birthdate: '',
         birthplace: '',
-        favTopics: '',
+        favTopics: [],
         gender: '',
         dni: '',
         address: ''
     });
 
-    const handleChange = (selectedOption) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
-            birthplace: selectedOption.value
+            [name]: value
         }));
+    };
+
+    const handleCheckboxChange = (e) => {
+        const { value, checked } = e.target;
+        setFormData(prevState => {
+            if (checked) {
+                return { ...prevState, favTopics: [...prevState.favTopics, value] };
+            } else {
+                return { ...prevState, favTopics: prevState.favTopics.filter(topic => topic !== value) };
+            }
+        });
     };
 
     const handleChangeDate = (date) => {
@@ -51,7 +63,7 @@ export function RegisterPage() {
                 birthplace: formData.birthplace,
                 address: formData.address,
                 gender: formData.gender,
-                fav_topics: formData.favTopics
+                fav_topics: formData.favTopics.join(', ') // Convertir la lista de temas en una cadena separada por comas
             };
 
             const response = await axios.post("http://localhost:8000/users/clients/", userData);
@@ -151,27 +163,126 @@ export function RegisterPage() {
                         />
                     </div>
                     <div className="form-group">
-                        <input 
-                            type="text" 
-                            id="favTopics" 
-                            name="favTopics" 
-                            value={formData.favTopics} 
-                            onChange={handleChange} 
-                            placeholder="Temas de Libros de Preferencia (separados por coma)"
-                            required 
-                        />
+                        <label>Temas de Libros de Preferencia:</label>
+                        <div className="checkbox-group">
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Ciencia Ficción"
+                                    checked={formData.favTopics.includes("Ciencia Ficción")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Ciencia Ficción
+                            </label>
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Romance"
+                                    checked={formData.favTopics.includes("Romance")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Romance
+                            </label>
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Misterio"
+                                    checked={formData.favTopics.includes("Misterio")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Misterio
+                            </label>
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Fantasía"
+                                    checked={formData.favTopics.includes("Fantasía")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Fantasía
+                            </label>
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Terror"
+                                    checked={formData.favTopics.includes("Terror")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Terror
+                            </label>
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Aventura"
+                                    checked={formData.favTopics.includes("Aventura")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Aventura
+                            </label>
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Historia"
+                                    checked={formData.favTopics.includes("Historia")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Historia
+                            </label>
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Autoayuda"
+                                    checked={formData.favTopics.includes("Autoayuda")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Autoayuda
+                            </label>
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Ciencia"
+                                    checked={formData.favTopics.includes("Ciencia")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Ciencia
+                            </label>
+                            <label className="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="favTopics"
+                                    value="Humor"
+                                    checked={formData.favTopics.includes("Humor")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                Humor
+                            </label>
+                        </div>
                     </div>
+
                     <div className="form-group">
-                        <input 
-                            type="text" 
-                            id="gender" 
-                            name="gender" 
-                            value={formData.gender} 
-                            onChange={handleChange} 
-                            placeholder="Género"
-                            required 
-                        />
+                        <select
+                            id="gender"
+                            name="gender"
+                            value={formData.gender}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Seleccionar Género</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                            <option value="Otro">Otro</option>
+                        </select>
                     </div>
+
                     <div className="form-group">
                         <input 
                             type="text" 

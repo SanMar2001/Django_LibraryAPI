@@ -139,3 +139,43 @@ body {
 .logo {
   height: 30px; /* Ajusta la altura del logo según sea necesario */
 }
+
+/* Estilos para los checkboxes */
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los checkboxes se envuelvan automáticamente si no hay suficiente espacio en la línea */
+  margin-bottom: 10px;
+}
+
+.checkbox-label {
+  margin-right: 20px; /* Espacio entre cada checkbox */
+  display: flex; /* Alinea el contenido verticalmente */
+  align-items: center; /* Centra verticalmente el checkbox y el texto */
+  color: #999; /* Color del texto similar al color del placeholder */
+}
+
+.checkbox-group label {
+  color: #999; /* Color del texto similar al color del placeholder */
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 5px; /* Espacio entre el checkbox y el texto */
+  height: 1em; /* Establece la altura del checkbox igual al tamaño de la fuente */
+  width: 1em; /* Establece el ancho del checkbox igual al tamaño de la fuente */
+  appearance: none; /* Elimina los estilos predeterminados del checkbox */
+}
+
+.checkbox-label input[type="checkbox"]::before {
+  content: '';
+  display: inline-block;
+  width: 1em; /* Establece el ancho del cuadro del checkbox */
+  height: 1em; /* Establece la altura del cuadro del checkbox */
+  border: 2px solid #007bff; /* Cambia el color del borde del checkbox */
+  background-color: transparent; /* Establece el fondo del cuadro del checkbox como transparente */
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.checkbox-label input[type="checkbox"]:checked::before {
+  background-color: #007bff; /* Cambia el color de fondo del checkbox cuando está seleccionado */
+}
