@@ -20,3 +20,5 @@ class NewsView(APIView):
     def get(self, request):
         books = Book.objects.order_by('-pubDate').values()
         return JsonResponse(list(books), safe=False)
+    
+
