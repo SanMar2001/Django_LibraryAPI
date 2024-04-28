@@ -37,7 +37,7 @@ export function TaskPage() {
       {/* Contenido principal */}
       <div className="slider">
         {/* Botón para desplazarse al libro anterior */}
-        <button onClick={prevBook}>&#10094;</button>
+        <button className="button" onClick={prevBook}>&#10094;</button>
 
         {/* Detalles del libro actual */}
         <div className="book-details">
@@ -48,13 +48,14 @@ export function TaskPage() {
         </div>
 
         {/* Botón para desplazarse al siguiente libro */}
-        <button onClick={nextBook}>&#10095;</button>
+        <button className="button" onClick={nextBook}>&#10095;</button>
       </div>
 
       {/* Pie de página */}
-      <footer>
+      <footer className="footer">
         <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
       </footer>
     </div>
+
   );
 }
