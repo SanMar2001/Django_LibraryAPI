@@ -26,7 +26,7 @@ class Book(models.Model):
     price = models.PositiveIntegerField(null=False)
     reserved = models.BooleanField(default=False, blank=True)
     sold = models.BooleanField(default=False, blank=True)
-    image = models.ImageField(upload_to='images/', default='default.jpg')
+    image = models.ImageField(upload_to='image/', default='default.jpg')
 
     def __str__(self):
         return self.title

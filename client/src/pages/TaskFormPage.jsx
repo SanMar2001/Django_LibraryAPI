@@ -27,7 +27,7 @@ export function TaskFormPage() {
                 localStorage.setItem('accessToken', response.data.access);
                 localStorage.setItem('type', response.data.type);
                 // Redirigir al usuario a otra página
-                window.location.href = "/logout"; // Por ejemplo, redireccionar a la página de dashboard
+                window.location.href = "/task"; // Por ejemplo, redireccionar a la página de dashboard
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);

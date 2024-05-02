@@ -41,6 +41,8 @@ export function TaskPage() {
 
         {/* Detalles del libro actual */}
         <div className="book-details">
+          {/* Mostrar la imagen del libro si existe */}
+          <img src={books[currentIndex]?.image} alt="imagen del libro" />
           <h2>{books[currentIndex]?.title}</h2>
           <p>Autor: {books[currentIndex]?.author}</p>
           <p>Género: {books[currentIndex]?.gender}</p>
@@ -56,6 +58,5 @@ export function TaskPage() {
         <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
       </footer>
     </div>
-
   );
 }
