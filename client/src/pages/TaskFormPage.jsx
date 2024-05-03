@@ -32,17 +32,11 @@ export function TaskFormPage() {
                 const userType = localStorage.getItem('type');
                 if ( userType === 'client') {
                     window.location.href = "/clientprofile";
-                }
-                else window.location.href = "/task";
-                {/*
-               
                 } else if ( userType === 'admin') {
-                    window.location.href = "/adminprofile"
-                } else if ( userType === 'root') {
-                    window.location.href = "/rootprofile"
-                }
-            */}
-                
+                    window.location.href = "/adminprofile";
+                }// else if ( userType === 'root') {
+                //    window.location.href = "/rootprofile"
+                //}
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);

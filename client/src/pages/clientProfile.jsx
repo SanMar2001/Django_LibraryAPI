@@ -29,9 +29,12 @@ export function ClientProfile() {
 
   // Renderizar los datos del usuario si existen
   return (
+        
     <div>
-      <h1>Perfil del Cliente</h1>
-      {usuario && (
+        <br />
+        <br />
+        <h1>Perfil del Cliente</h1>
+        {usuario && (
         <div>
           <p><strong>DNI:</strong> {usuario.dni}</p>
           <p><strong>Nombre:</strong> {usuario.names}</p>

@@ -42,11 +42,11 @@ export function TaskPage() {
         {/* Detalles del libro actual */}
         <div className="book-details">
           {/* Mostrar la imagen del libro si existe */}
-          <img src={books[currentIndex]?.image} alt="imagen del libro" />
+          <img className="newsImage" src={books[currentIndex]?.image} alt="imagen del libro" />
           <h2>{books[currentIndex]?.title}</h2>
           <p>Autor: {books[currentIndex]?.author}</p>
           <p>Género: {books[currentIndex]?.gender}</p>
-          <p>Precio: {books[currentIndex]?.price}</p>
+          <p>Precio: ${books[currentIndex]?.price}</p>
         </div>
 
         {/* Botón para desplazarse al siguiente libro */}
