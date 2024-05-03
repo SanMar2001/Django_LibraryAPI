@@ -64,19 +64,27 @@ export function Navigation() {
   };
 
   return (
-    <nav className="navbar">
-      {/* Logo */}
-      <img src={logo} alt="Logo" className="logo" />
-      
-      {/* Elementos de navegación */}
-      <div className="navigation-links">
-        <Link to="/task" className="navigation-item">Inicio</Link>
-        {isLoggedIn ? (
-          <button className="navigation-item" onClick={handleLogout}>Cerrar Sesión</button>
-        ) : (
-          <Link to="/task-create" className="navigation-item" style={{ marginLeft: "10px" }}>Iniciar Sesión</Link>
-        )}
-      </div>
-    </nav>
+      <nav className="navbar">
+        {/* Logo */}
+        <Link to="/task">
+          <img src={logo} alt="Logo" className="logo" />
+        </Link>
+        
+        {/* Elementos de navegación */}
+        <div className="navigation-links">
+          <Link to="/task" className="navigation-item">Inicio</Link>
+          {isLoggedIn ? (
+            <>
+              <button className="navigation-item" onClick={handleLogout} style={{ marginLeft: "10px" }}>Cerrar Sesión</button>
+              <Link to="/clientprofile" className="navigation-item" style={{ marginLeft: "10px" }}>Perfil</Link>
+            </>
+          ) : (
+            <Link to="/task-create" className="navigation-item" style={{ marginLeft: "10px" }}>Iniciar Sesión</Link>
+          )}
+          <Link to="/contact" className="navigation-item" style={{ marginLeft: "10px" }}>Contáctanos</Link>
+          <Link to="/aboutus" className="navigation-item" style={{ marginLeft: "10px" }}>Sobre Nosotros</Link>
+        </div>
+      </nav>
+
   );
 }

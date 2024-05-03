@@ -50,6 +50,7 @@ export function TaskFormPage() {
 
     return (
         <div className="container">
+            <br /><br /><br /><br /><br /><br /><br />
             <div className="form-box">
                 <h1>Iniciar Sesión</h1>
                 <form onSubmit={handleLogin}>
@@ -78,7 +79,7 @@ export function TaskFormPage() {
                     <div className='buttons'>
                         <button type="submit">Iniciar Sesión</button>
                         <button onClick={() => window.location.href = "/register"}>Registrarse</button>
-                        <button className="forgot" onClick={handleForgotPassword}>Has olvidado tu contraseña?</button>
+
                     </div>    
                 </form>
             </div>

@@ -31,31 +31,41 @@ export function TaskPage() {
 
   return (
     <div className="container content">
-      {/* Encabezado de la página */}
+      <br /><br /><br /><br /><br /><br /><br />
       <h1>¡Bienvenido a nuestro sitio web!</h1>
       <h2>Aquí nuestras últimas novedades disponibles para ti</h2>
 
-      {/* Contenido principal */}
       <div className="slider">
-        {/* Botón para desplazarse al libro anterior */}
-        <button className="button" onClick={prevBook}>&#10094;</button>
+        <button className="button button-prev" onClick={prevBook}>&#10094;</button>
 
-        {/* Detalles del libro actual */}
         <div className="book-details">
-          {/* Mostrar la imagen del libro si existe */}
-          <img className="newsImage" src={books[currentIndex]?.image} alt="imagen del libro" />
-          <h2>{books[currentIndex]?.title}</h2>
-          <p>Autor: {books[currentIndex]?.author}</p>
-          <p>Género: {books[currentIndex]?.gender}</p>
-          <p>Precio: ${books[currentIndex]?.price}</p>
-          <p>Condición: ${books[currentIndex]?.condition}</p>
+          <img className="book-image" src={books[currentIndex]?.image} alt="imagen del libro" />
+          <h2 className="book-title">{books[currentIndex]?.title}</h2>
+          <p className="book-info">Autor: {books[currentIndex]?.author}</p>
+          <p className="book-info">Género: {books[currentIndex]?.gender}</p>
+          <p className="book-info">Precio: ${books[currentIndex]?.price}</p>
+          <p className="book-info">Condición: {books[currentIndex]?.condition}</p>
         </div>
 
-        {/* Botón para desplazarse al siguiente libro */}
-        <button className="button" onClick={nextBook}>&#10095;</button>
+        <button className="button button-next" onClick={nextBook}>&#10095;</button>
       </div>
 
-      {/* Pie de página */}
+      <div className="section">
+        <h3>Lorem</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, corporis, consectetur officia maiores cupiditate at quidem accusantium ratione molestiae, labore ad commodi ipsum. Autem earum ex aspernatur natus accusantium sunt.</p>
+      </div>
+
+      <div className="section">
+        <h3>Contactanos</h3>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio aut magnam aliquid, sequi repellat nostrum corporis earum quaerat numquam aspernatur est quos beatae ratione facere exercitationem velit accusamus expedita dolor.</p>
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br />
+
       <footer className="footer">
         <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
       </footer>

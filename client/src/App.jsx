@@ -11,6 +11,8 @@ import { AdminProfile } from "./pages/AdminProfile";
 import { AdminBooks } from "./pages/AdminBooks";
 import { AdminStores } from "./pages/AdminStores";
 import { RootProfile } from "./pages/RootProfile";
+import { Contact } from "./pages/Contact";
+import { AboutUs } from "./pages/AboutUs";
 
 function App() {
   return(
@@ -31,8 +33,12 @@ function App() {
         <Route key="adminbooks" path="/adminbooks" element={<AdminBooks />} />
         <Route key="adminstores" path="/adminstores" element={<AdminStores />} />
         <Route key="rootprofile" path="/rootprofile" element={<RootProfile />} />
+        <Route key="contact" path="/contact" element={<Contact />} />
+        <Route key="aboutus" path="/aboutus" element={<AboutUs />} />
+
+
       </Routes>
-      
+
     </BrowserRouter>
   )
 }

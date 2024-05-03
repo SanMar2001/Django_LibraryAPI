@@ -71,57 +71,68 @@ export function ClientProfile() {
 
   // Renderizar los datos del usuario si existen
   return (
-    <div>
+    <div className="container">
       <br />
       <br />
-      <h1>Perfil del Cliente</h1>
-      {usuario && (
-      <div>
-        <p><strong>DNI:</strong> {usuario.dni}</p>
-        <p><strong>Nombre:</strong> {usuario.names}</p>
-        <p><strong>Apellidos:</strong> {usuario.surnames}</p>
-        <p><strong>Fecha de Nacimiento:</strong> {usuario.birthdate}</p>
-        <p><strong>Lugar de Nacimiento:</strong> {usuario.birthplace}</p>
-        <p><strong>Dirección:</strong> {usuario.address}</p>
-      </div>
-      )}
       <br />
       <br />
-      <h2>Actualizar información</h2>
-      <div>
-      {formData && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Nombre:
-            <input type="text" name="names" value={formData.names} onChange={handleChange} />
-          </label>
-          <br />
-          <label>
-            Apellidos:
-            <input type="text" name="surnames" value={formData.surnames} onChange={handleChange} />
-          </label>
-          <br />
-          <label>
-            DNI:
-            <input type="text" name="dni" value={formData.dni} onChange={handleChange} />
-          </label>
-          <br />
-          <label>
-            Dirección:
-            <input type="text" name="address" value={formData.address} onChange={handleChange} />
-          </label>
-          <br />
-          <label>
-            Lugar de nacimiento:
-            <input type="text" name="birthplace" value={formData.birthplace} onChange={handleChange} />
-          </label>
-          <br />
-          <button type="submit">Actualizar</button>
-        </form>
-        )}
-      </div>
+
+  <br />
+  <br />
+  <h1>Perfil del Cliente</h1>
+  {usuario && (
+  <div>
+    <p><strong>DNI:</strong> {usuario.dni}</p>
+    <p><strong>Nombre:</strong> {usuario.names}</p>
+    <p><strong>Apellidos:</strong> {usuario.surnames}</p>
+    <p><strong>Fecha de Nacimiento:</strong> {usuario.birthdate}</p>
+    <p><strong>Lugar de Nacimiento:</strong> {usuario.birthplace}</p>
+    <p><strong>Dirección:</strong> {usuario.address}</p>
+  </div>
+  )}
+  <br />
+  <br />
+  <h2>Actualizar información</h2>
+  <div className="form-box">
+  {formData && (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Nombre:
+        <input type="text" name="names" value={formData.names} onChange={handleChange} />
+      </label>
       <br />
-      
-    </div>
+      <label>
+        Apellidos:
+        <input type="text" name="surnames" value={formData.surnames} onChange={handleChange} />
+      </label>
+      <br />
+      <label>
+        DNI:
+        <input type="text" name="dni" value={formData.dni} onChange={handleChange} />
+      </label>
+      <br />
+      <label>
+        Dirección:
+        <input type="text" name="address" value={formData.address} onChange={handleChange} />
+      </label>
+      <br />
+      <label>
+        Lugar de nacimiento:
+        <input type="text" name="birthplace" value={formData.birthplace} onChange={handleChange} />
+      </label>
+      <br />
+      <button type="submit" className="button">Actualizar</button>
+    </form>
+    )}
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  
+</div>
+
   );
 }
