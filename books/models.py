@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import Client
 
 #Tuplas para choices
 conditions = [('Nuevo',"Nuevo"), ('Usado', "Usado")]
@@ -30,3 +31,14 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+class Card(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    number = models.PositiveBigIntegerField(blank=False)
+    name = models.CharField(max_length=50, blank=False)
+    cv = models.PositiveIntegerField(blank=False)
+    cadDate = models.CharField(max_length=5,  blank=False)
+
+class Shop(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)

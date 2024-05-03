@@ -10,7 +10,6 @@ from rest_framework import viewsets
 from .serializers import AdminSerializer, ClientSerializer, RootSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import AllowAny
-from django.shortcuts import get_object_or_404
 
 class RootView(viewsets.ModelViewSet):
     serializer_class = RootSerializer
