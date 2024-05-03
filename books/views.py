@@ -19,6 +19,5 @@ class NewsView(APIView):
     #Método get para obtener los libros en orden de fecha
     def get(self, request):
         books = Book.objects.order_by('-pubDate').values()
-        return JsonResponse(list(books), safe=False)
     
 

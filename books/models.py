@@ -1,8 +1,7 @@
 from django.db import models
-from users.models import Client
 
 #Tuplas para choices
-conditions = [('new',"Nuevo"), ('used', "Usado")]
+conditions = [('Nuevo',"Nuevo"), ('Usado', "Usado")]
 
 # Create your models here.
 class Store(models.Model):
@@ -27,25 +26,7 @@ class Book(models.Model):
     price = models.PositiveIntegerField(null=False)
     reserved = models.BooleanField(default=False, blank=True)
     sold = models.BooleanField(default=False, blank=True)
-    image = models.ImageField(upload_to='images/', default='default.jpg')
+    image = models.ImageField(upload_to='image/', default='default.jpg')
 
     def __str__(self):
         return self.title
-    
-class Reserve(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    dateReserved = models.DateTimeField(auto_now_add=True)
-    valid = models.BooleanField(default=True)
-
-class Sale(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    dateSale = models.DateTimeField(auto_now_add=True)
-    returned = models.BooleanField(default=False)
-
-class Turned(models.Model):
-    sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    description = models.TextField(blank=False)
-    validated = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='images/', default='default.jpg')
-
