@@ -73,17 +73,18 @@ export function RootProfile() {
   }, [currentIndex]); // Ejecutar cuando el currentIndex cambie
 
   return (
-    <div className="container content">
+    <div class="container content">
+      <br /><br /><br /><br /><br /><br />
       {/* Encabezado de la página */}
       <h1>Manejo de Administradores</h1>
 
       {/* Contenido principal */}
-      <div className="slider">
+      <div class="slider">
         {/* Botón para desplazarse al admin anterior */}
-        <button className="button" onClick={prevAdmin}>&#10094;</button>
+        <button class="button" onClick={prevAdmin}>&#10094;</button>
 
         {/* Detalles del admin actual */}
-        <div className="admin-details">
+        <div class="admin-details">
           <p>Nombre: {admins[currentIndex]?.names}</p>
           <p>Apellido: {admins[currentIndex]?.surnames}</p>
           <p>DNI: {admins[currentIndex]?.dni}</p>
@@ -92,7 +93,7 @@ export function RootProfile() {
         </div>
 
         {/* Botón para desplazarse al siguiente admin */}
-        <button className="button" onClick={nextAdmin}>&#10095;</button>
+        <button class="button" onClick={nextAdmin}>&#10095;</button>
       </div>
       <br />
       <br />
@@ -102,30 +103,30 @@ export function RootProfile() {
         <form onSubmit={handleSubmit}>
           <label>
             Nombre:
-            <input type="text" name="names" value={formData.names} onChange={handleChange} />
+            <input class="form-input" type="text" name="names" value={formData.names} onChange={handleChange} />
           </label>
           <br />
           <label>
             Apellidos:
-            <input type="text" name="surnames" value={formData.surnames} onChange={handleChange} />
+            <input class="form-input" type="text" name="surnames" value={formData.surnames} onChange={handleChange} />
           </label>
           <br />
           <label>
             DNI:
-            <input type="text" name="dni" value={formData.dni} onChange={handleChange} />
+            <input class="form-input" type="text" name="dni" value={formData.dni} onChange={handleChange} />
           </label>
           <br />
           <label>
             Dirección:
-            <input type="text" name="address" value={formData.address} onChange={handleChange} />
+            <input class="form-input" type="text" name="address" value={formData.address} onChange={handleChange} />
           </label>
           <br />
           <label>
             Lugar de nacimiento:
-            <input type="text" name="birthplace" value={formData.birthplace} onChange={handleChange} />
+            <input class="form-input" type="text" name="birthplace" value={formData.birthplace} onChange={handleChange} />
           </label>
           <br />
-          <button type="submit">Actualizar</button>
+          <button class="form-button" type="submit">Actualizar</button>
           <br />
           <br />
           <h3>No olvides enviar los datos completos</h3>
@@ -135,10 +136,12 @@ export function RootProfile() {
       <br />
       <br />
       <br />
+      <br /><br /><br /><br /><br />  
       {/* Pie de página */}
-      <footer className="footer">
+      <footer class="footer">
         <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
       </footer>
     </div>
+
   );
 }

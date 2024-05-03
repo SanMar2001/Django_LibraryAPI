@@ -77,6 +77,8 @@ export function Navigation() {
             <>
               <button className="navigation-item" onClick={handleLogout} style={{ marginLeft: "10px" }}>Cerrar Sesión</button>
               <Link to="/clientprofile" className="navigation-item" style={{ marginLeft: "10px" }}>Perfil</Link>
+              <Link to="/shop" className="navigation-item" style={{ marginLeft: "10px" }}>Compra</Link>
+
             </>
           ) : (
             <Link to="/task-create" className="navigation-item" style={{ marginLeft: "10px" }}>Iniciar Sesión</Link>
