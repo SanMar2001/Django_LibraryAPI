@@ -64,7 +64,7 @@ export function TaskPage() {
       <br />
       <br />
       <br />
-<br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
       <footer className="footer">
         <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
