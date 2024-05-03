@@ -10,6 +10,7 @@ from rest_framework import viewsets
 from .serializers import AdminSerializer, ClientSerializer, RootSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import AllowAny
+from django.shortcuts import get_object_or_404
 
 class RootView(viewsets.ModelViewSet):
     serializer_class = RootSerializer
@@ -36,13 +37,18 @@ class LoginView(APIView):
                 user_type = 'root'
             elif Admin.objects.filter(user=User.objects.get(username=request.data.get('username'))).exists():
                 user_type = 'admin'
+                Admin_obj = Admin.objects.get(user__username = request.data.get('username'))
+                id = Admin_obj.id
             elif Client.objects.filter(user=User.objects.get(username=request.data.get('username'))).exists():
                 user_type = 'client'
+                Client_obj = Client.objects.get(user__username = request.data.get('username'))
+                id = Client_obj.id
             refresh = RefreshToken.for_user(user)
             return Response({
                 'access': str(refresh.access_token),
                 'refresh': str(refresh),
-                'type': str(user_type)
+                'type': str(user_type),
+                'id' : str(id)
             })
         else:
             return Response({'error': 'Nombre de usuario o contraseña incorrectos'}, status=status.HTTP_401_UNAUTHORIZED)

@@ -23,6 +23,7 @@ function LogoutPage() {
             // Eliminamos el token de acceso del almacenamiento local
             localStorage.removeItem('accessToken');
             localStorage.removeItem('type');
+            localStorage.removeItem('id');
 
             // Redirigimos al usuario a la página de inicio de sesión
             window.location.href = '/task-create';

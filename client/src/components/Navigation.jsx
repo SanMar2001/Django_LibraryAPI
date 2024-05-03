@@ -12,7 +12,7 @@ export function Navigation() {
     checkAuthentication();
   }, []);
 
-  // Función para verificar el estado de autenticación
+  // Función para verificar el estado de autenticación 
   const checkAuthentication = async () => {
     try {
       // Obtenemos el token de acceso del almacenamiento local
@@ -20,18 +20,7 @@ export function Navigation() {
 
       // Verificamos si el token de acceso existe y es válido
       if (accessToken) {
-        // Realizamos la solicitud al backend para verificar la autenticación
-        const response = await axios.post('http://localhost:8000/users/logout/', null, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`  
-          }
-        });
-
-        // Si la solicitud es exitosa, el usuario está autenticado
         setIsLoggedIn(true);
-
-        // Redirigimos al usuario a la página de tareas
-        window.location.href = '/task';
       }
     } catch (error) {
       // Si hay un error, el usuario no está autenticado
@@ -62,12 +51,13 @@ export function Navigation() {
       // Eliminamos el token de acceso del almacenamiento local
       localStorage.removeItem('accessToken');
       localStorage.removeItem('type');
+      localStorage.removeItem('id');
 
       // Establecemos el estado de autenticación a false
       setIsLoggedIn(false);
 
       // Redirigimos al usuario a la página de inicio de sesión
-      window.location.href = '/task-create';
+      window.location.href = '/task';
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
@@ -90,4 +80,3 @@ export function Navigation() {
     </nav>
   );
 }
-

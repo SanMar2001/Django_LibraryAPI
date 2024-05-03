@@ -26,8 +26,23 @@ export function TaskFormPage() {
                 // Almacenar el token de acceso en el almacenamiento local
                 localStorage.setItem('accessToken', response.data.access);
                 localStorage.setItem('type', response.data.type);
+                localStorage.setItem('id', response.data.id);
                 // Redirigir al usuario a otra página
-                window.location.href = "/task"; // Por ejemplo, redireccionar a la página de dashboard
+                
+                const userType = localStorage.getItem('type');
+                if ( userType === 'client') {
+                    window.location.href = "/clientprofile";
+                }
+                else window.location.href = "/task";
+                {/*
+               
+                } else if ( userType === 'admin') {
+                    window.location.href = "/adminprofile"
+                } else if ( userType === 'root') {
+                    window.location.href = "/rootprofile"
+                }
+            */}
+                
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);

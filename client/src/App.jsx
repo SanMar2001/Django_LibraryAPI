@@ -6,7 +6,7 @@ import { Navigation } from "./components/Navigation";
 import { RegisterPage } from "./pages/RegisterPage";
 import { AdminLoginPage } from "./pages/AdminLoginPage";
 import  LogoutPage  from "./pages/LogoutPage";
-
+import { ClientProfile } from "./pages/clientProfile";
 
 function App() {
   return(
@@ -22,6 +22,7 @@ function App() {
         <Route key="taskcreate" path="/task-create" element={<TaskFormPage />} />
         <Route key="register" path="/register" element={<RegisterPage />} />
         <Route key="adminlogin" path="/adminlogin" element={<AdminLoginPage />} />
+        <Route key="clientprofile" path="/clientprofile" element={<ClientProfile />} />
       </Routes>
       
     </BrowserRouter>
