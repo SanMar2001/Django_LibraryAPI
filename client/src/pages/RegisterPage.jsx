@@ -74,7 +74,6 @@ export function RegisterPage() {
                 address: formData.address,
                 gender: formData.gender === 'Hombre' ? 'Masculino' : formData.gender,
                 fav_topics: formData.favTopics.join(', '),
-                userType: 'client'
             };
 
             const response = await axios.post("http://localhost:8000/users/clients/", userData);

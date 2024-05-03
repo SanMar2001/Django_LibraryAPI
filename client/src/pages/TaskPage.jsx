@@ -32,7 +32,8 @@ export function TaskPage() {
   return (
     <div className="container content">
       {/* Encabezado de la página */}
-      <h1>¡Bienvenido a mi sitio web!</h1>
+      <h1>¡Bienvenido a nuestro sitio web!</h1>
+      <h2>Aquí nuestras últimas novedades disponibles para ti</h2>
 
       {/* Contenido principal */}
       <div className="slider">
@@ -47,6 +48,7 @@ export function TaskPage() {
           <p>Autor: {books[currentIndex]?.author}</p>
           <p>Género: {books[currentIndex]?.gender}</p>
           <p>Precio: ${books[currentIndex]?.price}</p>
+          <p>Condición: ${books[currentIndex]?.condition}</p>
         </div>
 
         {/* Botón para desplazarse al siguiente libro */}

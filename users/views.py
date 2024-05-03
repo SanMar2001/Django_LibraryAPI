@@ -35,6 +35,8 @@ class LoginView(APIView):
         if user:
             if Root.objects.filter(user=User.objects.get(username=request.data.get('username'))).exists():
                 user_type = 'root'
+                Root_obj = Root.objects.get(user__username = request.data.get('username'))
+                id = Root_obj.id
             elif Admin.objects.filter(user=User.objects.get(username=request.data.get('username'))).exists():
                 user_type = 'admin'
                 Admin_obj = Admin.objects.get(user__username = request.data.get('username'))

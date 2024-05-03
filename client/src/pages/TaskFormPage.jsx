@@ -34,9 +34,9 @@ export function TaskFormPage() {
                     window.location.href = "/clientprofile";
                 } else if ( userType === 'admin') {
                     window.location.href = "/adminprofile";
-                }// else if ( userType === 'root') {
-                //    window.location.href = "/rootprofile"
-                //}
+                } else if ( userType === 'root') {
+                    window.location.href = "/rootprofile"
+                }
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);

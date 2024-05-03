@@ -12,7 +12,7 @@ class RootSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Root
-        fields = ['user']
+        fields = ['id', 'user']
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')
@@ -25,7 +25,7 @@ class AdminSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Admin
-        fields = ['user', 'dni', 'names', 'surnames', 'birthdate', 'birthplace', 'address', 'gender']
+        fields = ['id', 'user', 'dni', 'names', 'surnames', 'birthdate', 'birthplace', 'address', 'gender']
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')
@@ -38,7 +38,7 @@ class ClientSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Client
-        fields = ['user', 'dni', 'names', 'surnames', 'birthdate', 'birthplace', 'address', 'gender', 'fav_topics']
+        fields = ['id', 'user', 'dni', 'names', 'surnames', 'birthdate', 'birthplace', 'address', 'gender', 'fav_topics']
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')

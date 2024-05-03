@@ -10,6 +10,7 @@ import { ClientProfile } from "./pages/clientProfile";
 import { AdminProfile } from "./pages/AdminProfile";
 import { AdminBooks } from "./pages/AdminBooks";
 import { AdminStores } from "./pages/AdminStores";
+import { RootProfile } from "./pages/RootProfile";
 
 function App() {
   return(
@@ -29,6 +30,7 @@ function App() {
         <Route key="adminprofile" path="/adminprofile" element={<AdminProfile />} />
         <Route key="adminbooks" path="/adminbooks" element={<AdminBooks />} />
         <Route key="adminstores" path="/adminstores" element={<AdminStores />} />
+        <Route key="rootprofile" path="/rootprofile" element={<RootProfile />} />
       </Routes>
       
     </BrowserRouter>
