@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import Client
+from django.utils import timezone
 
 #Tuplas para choices
 conditions = [('Nuevo',"Nuevo"), ('Usado', "Usado")]
@@ -39,6 +40,14 @@ class Card(models.Model):
     cv = models.PositiveIntegerField(blank=False)
     cadDate = models.CharField(max_length=5,  blank=False)
 
-class Shop(models.Model):
+class Sale(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=timezone.now, blank=True)
+    delivered = models.BooleanField(default=False)
+    returned = models.BooleanField(default=False)
+
+class Reservation(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    validation = models.BooleanField(default=False)
