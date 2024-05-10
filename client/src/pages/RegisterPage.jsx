@@ -3,9 +3,10 @@ import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import '../index.css';
 import countryOptions from '../components/conuntries.js';
 import addYears from 'date-fns/addYears';
+
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importar estilos de Bootstrap
 
 export function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -86,6 +87,7 @@ export function RegisterPage() {
 
     return (
         <div className="container">
+            <br /><br />
             <div className="form-box">
                 <h1>Registro de Usuario</h1>
                 <form onSubmit={handleSubmit}>
@@ -96,6 +98,7 @@ export function RegisterPage() {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
+                            className="form-control"
                             placeholder="Correo Electrónico"
                             required
                         />
@@ -107,6 +110,7 @@ export function RegisterPage() {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
+                            className="form-control"
                             placeholder="Contraseña"
                             required
                         />
@@ -118,6 +122,7 @@ export function RegisterPage() {
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
+                            className="form-control"
                             placeholder="Confirmar Contraseña"
                             required
                         />
@@ -129,6 +134,7 @@ export function RegisterPage() {
                             name="names"
                             value={formData.names}
                             onChange={handleChange}
+                            className="form-control"
                             placeholder="Nombres"
                             required
                         />
@@ -140,6 +146,7 @@ export function RegisterPage() {
                             name="surnames"
                             value={formData.surnames}
                             onChange={handleChange}
+                            className="form-control"
                             placeholder="Apellidos"
                             required
                         />
@@ -151,6 +158,7 @@ export function RegisterPage() {
                             name="birthdate"
                             selected={formData.birthdate}
                             onChange={handleChangeDate}
+                            className="form-control"
                             placeholderText="Seleccione fecha"
                             dateFormat="dd/MM/yyyy"
                             maxDate={minDate}
@@ -165,6 +173,7 @@ export function RegisterPage() {
                             value={countryOptions.find(option => option.value === formData.birthplace)}
                             onChange={handleSelectChange}
                             options={countryOptions}
+                            className="form-control"
                             placeholder="Seleccione lugar de nacimiento"
                             required
                         />
@@ -211,6 +220,7 @@ export function RegisterPage() {
                             name="gender"
                             value={formData.gender}
                             onChange={handleChange}
+                            className="form-control"
                             required
                         >
                             <option value="">Seleccionar Género</option>
@@ -227,6 +237,7 @@ export function RegisterPage() {
                             name="dni"
                             value={formData.dni}
                             onChange={handleChange}
+                            className="form-control"
                             placeholder="Ingrese su DNI"
                             required
                         />
@@ -239,11 +250,12 @@ export function RegisterPage() {
                             name="address"
                             value={formData.address}
                             onChange={handleChange}
+                            className="form-control"
                             placeholder="Ingrese su dirección"
                             required
                         />
                     </div>
-                    <button type="submit">Registrarse</button>
+                    <button type="submit" className="btn btn-primary">Registrarse</button>
                 </form>
             </div>
         </div>

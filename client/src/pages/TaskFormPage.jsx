@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import axios from "axios";
-import '../index.css'; 
+import React, { useState } from 'react';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importar estilos de Bootstrap
 
 export function TaskFormPage() {
     const [formData, setFormData] = useState({
@@ -28,14 +28,13 @@ export function TaskFormPage() {
                 localStorage.setItem('type', response.data.type);
                 localStorage.setItem('id', response.data.id);
                 // Redirigir al usuario a otra página
-                
                 const userType = localStorage.getItem('type');
-                if ( userType === 'client') {
+                if (userType === 'client') {
                     window.location.href = "/clientprofile";
-                } else if ( userType === 'admin') {
+                } else if (userType === 'admin') {
                     window.location.href = "/adminprofile";
-                } else if ( userType === 'root') {
-                    window.location.href = "/rootprofile"
+                } else if (userType === 'root') {
+                    window.location.href = "/rootprofile";
                 }
             }
         } catch (error) {
@@ -44,43 +43,47 @@ export function TaskFormPage() {
         }
     };
 
-    const handleForgotPassword = () => {
-        // Lógica para manejar la recuperación de contraseña
-    };
-
     return (
         <div className="container">
-            <br /><br /><br /><br /><br /><br /><br />
+            <br /><br />
             <div className="form-box">
-                <h1>Iniciar Sesión</h1>
+                <h1 className="mb-4">Iniciar Sesión</h1>
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
-                        <input 
-                            type="text" 
-                            id="username" 
-                            name="username" 
-                            value={formData.username} 
-                            onChange={handleChange} 
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            className="form-control"
                             placeholder="Nombre de Usuario"
-                            required 
+                            required
                         />
                     </div>
                     <div className="form-group">
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            value={formData.password} 
-                            onChange={handleChange} 
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="form-control"
                             placeholder="Contraseña"
-                            required 
+                            required
                         />
                     </div>
-                    <div className='buttons'>
-                        <button type="submit">Iniciar Sesión</button>
-                        <button onClick={() => window.location.href = "/register"}>Registrarse</button>
-
-                    </div>    
+                    <div className="buttons">
+                        <button type="submit" className="btn btn-primary mr-2">
+                            Iniciar Sesión
+                        </button>
+                        <button
+                            onClick={() => (window.location.href = "/register")}
+                            className="btn btn-secondary"
+                        >
+                            Registrarse
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
