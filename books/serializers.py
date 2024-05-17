@@ -1,4 +1,4 @@
-from .models import Book, Store
+from .models import Book, Store, Card
 from rest_framework import serializers
 
 class BookSerializer(serializers.ModelSerializer):
@@ -11,3 +11,10 @@ class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
         fields = ['id', 'address', 'schedule']
+
+class CardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Card
+        fields = ['id', 'client', 'number', 'name', 'cv', 'cadDate']
+
+
