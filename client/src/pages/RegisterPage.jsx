@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import countryOptions from '../components/conuntries.js';
 import addYears from 'date-fns/addYears';
-
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importar estilos de Bootstrap
 
 export function RegisterPage() {
@@ -16,15 +14,37 @@ export function RegisterPage() {
         names: '',
         surnames: '',
         birthdate: null,
-        birthplace: '',
+        birthplaceCountry: '',
+        birthplaceCity: '',
         favTopics: [],
         gender: '',
         dni: '',
         address: ''
     });
 
+    const [countryOptions, setCountryOptions] = useState([]);
+    const [cityOptions, setCityOptions] = useState([]);
+    const [errors, setErrors] = useState({});
+
     const today = new Date();
     const minDate = addYears(today, -18);
+
+    useEffect(() => {
+        const fetchCountries = async () => {
+            try {
+                const response = await axios.get('https://restcountries.com/v3.1/all');
+                const countries = response.data.map(country => ({
+                    value: country.cca2,
+                    label: country.name.common
+                }));
+                setCountryOptions(countries);
+            } catch (error) {
+                console.error('Error fetching countries:', error);
+            }
+        };
+
+        fetchCountries();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -52,15 +72,48 @@ export function RegisterPage() {
         }));
     };
 
-    const handleSelectChange = (selectedOption) => {
+    const handleSelectCountryChange = async (selectedOption) => {
         setFormData(prevState => ({
             ...prevState,
-            birthplace: selectedOption.value
+            birthplaceCountry: selectedOption.value,
+            birthplaceCity: '' // Reset city when country changes
         }));
+
+        try {
+            const response = await axios.get(`http://api.geonames.org/searchJSON?country=${selectedOption.value}&username=demo&featureClass=P`);
+            const cities = response.data.geonames.map(city => ({
+                value: city.name,
+                label: city.name
+            }));
+            setCityOptions(cities);
+        } catch (error) {
+            console.error('Error fetching cities:', error);
+        }
+    };
+
+    const handleSelectCityChange = (selectedOption) => {
+        setFormData(prevState => ({
+            ...prevState,
+            birthplaceCity: selectedOption.value
+        }));
+    };
+
+    const validateEmail = () => {
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailPattern.test(formData.email);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        const emailValid = validateEmail();
+        if (!emailValid) {
+            setErrors(prevErrors => ({ ...prevErrors, email: 'Por favor ingrese una dirección de correo electrónico válida.' }));
+            return;
+        } else {
+            setErrors(prevErrors => ({ ...prevErrors, email: null }));
+        }
+
         try {
             const userData = {
                 user: {
@@ -71,7 +124,7 @@ export function RegisterPage() {
                 names: formData.names,
                 surnames: formData.surnames,
                 birthdate: formData.birthdate ? formData.birthdate.toISOString().split('T')[0] : '',
-                birthplace: formData.birthplace,
+                birthplace: `${formData.birthplaceCity}, ${formData.birthplaceCountry}`,
                 address: formData.address,
                 gender: formData.gender === 'Hombre' ? 'Masculino' : formData.gender,
                 fav_topics: formData.favTopics.join(', '),
@@ -91,19 +144,23 @@ export function RegisterPage() {
             <div className="form-box">
                 <h1>Registro de Usuario</h1>
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Correo Electrónico</label>
                         <input
                             type="email"
                             id="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="form-control"
+                            onBlur={validateEmail}
+                            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                             placeholder="Correo Electrónico"
                             required
                         />
+                        {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                     </div>
-                    <div className="form-group">
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Contraseña</label>
                         <input
                             type="password"
                             id="password"
@@ -115,7 +172,8 @@ export function RegisterPage() {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="mb-3">
+                        <label htmlFor="confirmPassword" className="form-label">Confirmar Contraseña</label>
                         <input
                             type="password"
                             id="confirmPassword"
@@ -127,7 +185,8 @@ export function RegisterPage() {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="mb-3">
+                        <label htmlFor="names" className="form-label">Nombres</label>
                         <input
                             type="text"
                             id="names"
@@ -139,7 +198,8 @@ export function RegisterPage() {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="mb-3">
+                        <label htmlFor="surnames" className="form-label">Apellidos</label>
                         <input
                             type="text"
                             id="surnames"
@@ -151,8 +211,8 @@ export function RegisterPage() {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="birthdate">Fecha de Nacimiento:</label>
+                    <div className="mb-3">
+                        <label htmlFor="birthdate" className="form-label">Fecha de Nacimiento</label>
                         <DatePicker
                             id="birthdate"
                             name="birthdate"
@@ -165,56 +225,74 @@ export function RegisterPage() {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="birthplace">Lugar de Nacimiento:</label>
+                    <div className="mb-3">
+                        <label htmlFor="birthplaceCountry" className="form-label">Lugar de Nacimiento - País</label>
                         <Select
-                            id="birthplace"
-                            name="birthplace"
-                            value={countryOptions.find(option => option.value === formData.birthplace)}
-                            onChange={handleSelectChange}
+                            id="birthplaceCountry"
+                            name="birthplaceCountry"
+                            value={countryOptions.find(option => option.value === formData.birthplaceCountry)}
+                            onChange={handleSelectCountryChange}
                             options={countryOptions}
                             className="form-control"
-                            placeholder="Seleccione lugar de nacimiento"
+                            placeholder="Seleccione país de nacimiento"
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Temas de Libros de Preferencia:</label>
-                        <div className="checkbox-group">
-                            <label className="checkbox-label">
-                                <input
-                                    type="checkbox"
-                                    name="favTopics"
-                                    value="Ciencia Ficción"
-                                    checked={formData.favTopics.includes("Ciencia Ficción")}
-                                    onChange={handleCheckboxChange}
-                                />
-                                Ciencia Ficción
-                            </label>
-                            <label className="checkbox-label">
-                                <input
-                                    type="checkbox"
-                                    name="favTopics"
-                                    value="Romance"
-                                    checked={formData.favTopics.includes("Romance")}
-                                    onChange={handleCheckboxChange}
-                                />
-                                Romance
-                            </label>
-                            <label className="checkbox-label">
-                                <input
-                                    type="checkbox"
-                                    name="favTopics"
-                                    value="Misterio"
-                                    checked={formData.favTopics.includes("Misterio")}
-                                    onChange={handleCheckboxChange}
-                                />
-                                Misterio
-                            </label>
+                    <div className="mb-3">
+                        <label htmlFor="birthplaceCity" className="form-label">Lugar de Nacimiento - Ciudad</label>
+                        <Select
+                            id="birthplaceCity"
+                            name="birthplaceCity"
+                            value={cityOptions.find(option => option.value === formData.birthplaceCity)}
+                            onChange={handleSelectCityChange}
+                            options={cityOptions}
+                            className="form-control"
+                            placeholder="Seleccione ciudad de nacimiento"
+                            isDisabled={!formData.birthplaceCountry}
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label>Temas de Libros de Preferencia</label>
+                        <div className="form-check">
+                            <input
+                                type="checkbox"
+                                id="favSciFi"
+                                name="favTopics"
+                                value="Ciencia Ficción"
+                                checked={formData.favTopics.includes("Ciencia Ficción")}
+                                onChange={handleCheckboxChange}
+                                className="form-check-input"
+                            />
+                            <label htmlFor="favSciFi" className="form-check-label">Ciencia Ficción</label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                type="checkbox"
+                                id="favRomance"
+                                name="favTopics"
+                                value="Romance"
+                                checked={formData.favTopics.includes("Romance")}
+                                onChange={handleCheckboxChange}
+                                className="form-check-input"
+                            />
+                            <label htmlFor="favRomance" className="form-check-label">Romance</label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                type="checkbox"
+                                id="favMystery"
+                                name="favTopics"
+                                value="Misterio"
+                                checked={formData.favTopics.includes("Misterio")}
+                                onChange={handleCheckboxChange}
+                                className="form-check-input"
+                            />
+                            <label htmlFor="favMystery" className="form-check-label">Misterio</label>
                         </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="gender">Género:</label>
+                    <div className="mb-3">
+                        <label htmlFor="gender" className="form-label">Género</label>
                         <select
                             id="gender"
                             name="gender"
@@ -229,8 +307,8 @@ export function RegisterPage() {
                             <option value="Otro">Otro</option>
                         </select>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="dni">DNI:</label>
+                    <div className="mb-3">
+                        <label htmlFor="dni" className="form-label">DNI</label>
                         <input
                             type="text"
                             id="dni"
@@ -242,8 +320,8 @@ export function RegisterPage() {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="address">Dirección:</label>
+                    <div className="mb-3">
+                        <label htmlFor="address" className="form-label">Dirección</label>
                         <input
                             type="text"
                             id="address"
