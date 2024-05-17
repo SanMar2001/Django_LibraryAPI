@@ -64,29 +64,43 @@ export function Navigation() {
   };
 
   return (
-      <nav className="navbar">
-        {/* Logo */}
-        <Link to="/task">
-          <img src={logo} alt="Logo" className="logo" />
-        </Link>
-        
-        {/* Elementos de navegación */}
-        <div className="navigation-links">
-          <Link to="/task" className="navigation-item">Inicio</Link>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      {/* Logo */}
+      <Link to="/task" className="navbar-brand">
+        <img src={logo} alt="Logo" className="logo" />
+      </Link>
+
+      {/* Elementos de navegación */}
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <li className="nav-item">
+            <Link to="/task" className="nav-link">Inicio</Link>
+          </li>
           {isLoggedIn ? (
             <>
-              <button className="navigation-item" onClick={handleLogout} style={{ marginLeft: "10px" }}>Cerrar Sesión</button>
-              <Link to="/clientprofile" className="navigation-item" style={{ marginLeft: "10px" }}>Perfil</Link>
-              <Link to="/shop" className="navigation-item" style={{ marginLeft: "10px" }}>Compra</Link>
-
+              <li className="nav-item">
+                <button className="nav-link btn btn-link" onClick={handleLogout}>Cerrar Sesión</button>
+              </li>
+              <li className="nav-item">
+                <Link to="/clientprofile" className="nav-link">Perfil</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/shop" className="nav-link">Compra</Link>
+              </li>
             </>
           ) : (
-            <Link to="/task-create" className="navigation-item" style={{ marginLeft: "10px" }}>Iniciar Sesión</Link>
+            <li className="nav-item">
+              <Link to="/task-create" className="nav-link">Iniciar Sesión</Link>
+            </li>
           )}
-          <Link to="/contact" className="navigation-item" style={{ marginLeft: "10px" }}>Contáctanos</Link>
-          <Link to="/aboutus" className="navigation-item" style={{ marginLeft: "10px" }}>Sobre Nosotros</Link>
-        </div>
-      </nav>
-
+          <li className="nav-item">
+            <Link to="/contact" className="nav-link">Contáctanos</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/aboutus" className="nav-link">Sobre Nosotros</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
   );
 }

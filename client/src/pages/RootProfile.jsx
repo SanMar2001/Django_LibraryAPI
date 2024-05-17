@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importar estilos de Bootstrap
 
 export function RootProfile() {
   // Estado para almacenar la lista de admins
@@ -40,7 +41,7 @@ export function RootProfile() {
         surnames: formData.surnames,
         address: formData.address,
         birthplace: formData.birthplace
-    };
+      };
       const response = await axios.patch(`http://localhost:8000/users/admins/${formData.id}/`, userData);
       if (response) {
         window.location.reload();
@@ -59,13 +60,13 @@ export function RootProfile() {
         setAdmins(response.data);
         const currentAdmin = response.data[currentIndex];
         setFormData({
-            names: currentAdmin.names,
-            surnames: currentAdmin.surnames,
-            dni: currentAdmin.dni,
-            id: currentAdmin.id,
-            address: currentAdmin.address,
-            birthplace: currentAdmin.birthplace
-          });
+          names: currentAdmin.names,
+          surnames: currentAdmin.surnames,
+          dni: currentAdmin.dni,
+          id: currentAdmin.id,
+          address: currentAdmin.address,
+          birthplace: currentAdmin.birthplace
+        });
       })
       .catch(error => {
         console.error('Error fetching admins:', error);
@@ -73,75 +74,54 @@ export function RootProfile() {
   }, [currentIndex]); // Ejecutar cuando el currentIndex cambie
 
   return (
-    <div class="container content">
-      <br /><br /><br /><br /><br /><br />
+    <div className="container content">
       {/* Encabezado de la página */}
       <h1>Manejo de Administradores</h1>
 
       {/* Contenido principal */}
-      <div class="slider">
-        {/* Botón para desplazarse al admin anterior */}
-        <button class="button" onClick={prevAdmin}>&#10094;</button>
-
-        {/* Detalles del admin actual */}
-        <div class="admin-details">
-          <p>Nombre: {admins[currentIndex]?.names}</p>
-          <p>Apellido: {admins[currentIndex]?.surnames}</p>
-          <p>DNI: {admins[currentIndex]?.dni}</p>
-          <p>Dirección: {admins[currentIndex]?.address}</p>
-          <p>Lugar de nacimiento: {admins[currentIndex]?.birthplace}</p>
+      <div className="row">
+        <div className="col-md-6">
+          {/* Botón para desplazarse al admin anterior */}
+          <button className="btn btn-primary" onClick={prevAdmin}>&#10094;</button>
         </div>
-
-        {/* Botón para desplazarse al siguiente admin */}
-        <button class="button" onClick={nextAdmin}>&#10095;</button>
+        <div className="col-md-6 text-right">
+          {/* Botón para desplazarse al siguiente admin */}
+          <button className="btn btn-primary" onClick={nextAdmin}>&#10095;</button>
+        </div>
       </div>
-      <br />
       <br />
       <div>
         <h2>Actualizar información</h2>
         {formData && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Nombre:
-            <input class="form-input" type="text" name="names" value={formData.names} onChange={handleChange} />
-          </label>
-          <br />
-          <label>
-            Apellidos:
-            <input class="form-input" type="text" name="surnames" value={formData.surnames} onChange={handleChange} />
-          </label>
-          <br />
-          <label>
-            DNI:
-            <input class="form-input" type="text" name="dni" value={formData.dni} onChange={handleChange} />
-          </label>
-          <br />
-          <label>
-            Dirección:
-            <input class="form-input" type="text" name="address" value={formData.address} onChange={handleChange} />
-          </label>
-          <br />
-          <label>
-            Lugar de nacimiento:
-            <input class="form-input" type="text" name="birthplace" value={formData.birthplace} onChange={handleChange} />
-          </label>
-          <br />
-          <button class="form-button" type="submit">Actualizar</button>
-          <br />
-          <br />
-          <h3>No olvides enviar los datos completos</h3>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Nombre:</label>
+              <input className="form-control" type="text" name="names" value={formData.names} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Apellidos:</label>
+              <input className="form-control" type="text" name="surnames" value={formData.surnames} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>DNI:</label>
+              <input className="form-control" type="text" name="dni" value={formData.dni} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Dirección:</label>
+              <input className="form-control" type="text" name="address" value={formData.address} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Lugar de nacimiento:</label>
+              <input className="form-control" type="text" name="birthplace" value={formData.birthplace} onChange={handleChange} />
+            </div>
+            <button className="btn btn-primary" type="submit">Actualizar</button>
+            <br />
+            <br />
+            <h3>No olvides enviar los datos completos</h3>
+          </form>
         )}
       </div>
       <br />
-      <br />
-      <br />
-      <br /><br /><br /><br /><br />  
-      {/* Pie de página */}
-      <footer class="footer">
-        <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
-      </footer>
     </div>
-
   );
 }
