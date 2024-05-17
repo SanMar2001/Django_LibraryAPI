@@ -1,6 +1,7 @@
 from django.db import models
-from users.models import Client
+from users.models import Client, Admin
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 #Tuplas para choices
 conditions = [('Nuevo',"Nuevo"), ('Usado', "Usado")]
@@ -50,4 +51,25 @@ class Sale(models.Model):
 class Reservation(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    validation = models.BooleanField(default=False)
+    expired = models.BooleanField(default=False)
+    date = models.DateTimeField(default=timezone.now)
+
+class Devolution(models.Model):
+    sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
+    description = models.TextField(blank=False)
+    image = models.ImageField(upload_to='image/', default='default.jpg')
+    validated = models.BooleanField(default=False)
+    date = models.DateTimeField(default=timezone.now)
+
+
+class Chat(models.Model):
+    admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    closed = models.BooleanField(default=False)
+
+class Message(models.Model):
+    content = models.TextField(blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    usertype = models.CharField(blank=False, max_length=8)
+    date = models.DateTimeField(default=timezone.now)
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
