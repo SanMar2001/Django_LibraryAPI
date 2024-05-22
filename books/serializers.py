@@ -1,4 +1,4 @@
-from .models import Book, Store, Card
+from .models import Book, Store, Card, Sale, Reservation, Devolution, Chat, Message
 from rest_framework import serializers
 
 class BookSerializer(serializers.ModelSerializer):
@@ -17,4 +17,27 @@ class CardSerializer(serializers.ModelSerializer):
         model = Card
         fields = ['id', 'client', 'number', 'name', 'cv', 'cadDate']
 
+class SaleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sale
+        fields = ['id', 'book', 'client', 'date', 'delivered', 'returned']
 
+class ReservationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reservation
+        fields = ['id', 'book', 'client', 'expired', 'date']
+
+class DevolutionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Devolution
+        fields = ['id', 'sale', 'description', 'image', 'validated', 'date']
+
+class ChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ['id', 'admin', 'client', 'closed']
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ['id', 'content', 'user', 'usertype', 'date', 'chat']

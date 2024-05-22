@@ -1,4 +1,4 @@
-from .serializers import BookSerializer, StoreSerializer, CardSerializer
+from .serializers import BookSerializer, StoreSerializer, CardSerializer, SaleSerializer, DevolutionSerializer, ReservationSerializer, ChatSerializer, MessageSerializer
 from django.http import JsonResponse
 from .models import Book, Store, Card, Sale, Devolution, Reservation, Chat, Message
 from rest_framework import viewsets
@@ -22,3 +22,24 @@ class NewsView(APIView):
 
 class CardView(viewsets.ModelViewSet):
     serializer_class = CardSerializer
+    queryset = Card.objects.all()
+
+class SaleView(viewsets.ModelViewSet):
+    serializer_class = SaleSerializer
+    queryset = Sale.objects.all()
+
+class DevolutionView(viewsets.ModelViewSet):
+    serializer_class = DevolutionSerializer
+    queryset = Devolution.objects.all()
+
+class ReservationView(viewsets.ModelViewSet):
+    serializer_class = ReservationSerializer
+    queryset = Reservation.objects.all()
+
+class ChatView(viewsets.ModelViewSet):
+    serializer_class = ChatSerializer
+    queryset = Chat.objects.all()
+
+class MessageView(viewsets.ModelViewSet):
+    serializer_class = MessageSerializer
+    queryset = Message.objects.all()
