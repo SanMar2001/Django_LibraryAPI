@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 # Create your views here.
 class BookView(viewsets.ModelViewSet):
     serializer_class = BookSerializer
-    queryset = Book.objects.all()
+    queryset = Book.objects.filter(reserved=False, sold=False).order_by('-pubDate')
 
 class StoreView(viewsets.ModelViewSet):
     serializer_class = StoreSerializer
@@ -18,7 +18,7 @@ class NewsView(APIView):
     permission_classes = [AllowAny]
     #Método get para obtener los libros en orden de fecha
     def get(self, request):
-        books = Book.objects.order_by('-pubDate').values()
+        books = Book.objects.filter(reserved=False, sold=False).order_by('-pubDate')
 
 class CardView(viewsets.ModelViewSet):
     serializer_class = CardSerializer
@@ -43,3 +43,4 @@ class ChatView(viewsets.ModelViewSet):
 class MessageView(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
     queryset = Message.objects.all()
+
