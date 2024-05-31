@@ -39,7 +39,9 @@ class Card(models.Model):
     number = models.PositiveBigIntegerField(blank=False)
     name = models.CharField(max_length=50, blank=False)
     cv = models.PositiveIntegerField(blank=False)
-    cadDate = models.CharField(max_length=5,  blank=False)
+    cadMonth = models.CharField(max_length=2, blank=False)
+    cadYear = models.CharField(max_length=4, blank=False)
+    wallet = models.PositiveBigIntegerField(blank=False)
 
 class Sale(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)

@@ -15,7 +15,7 @@ class StoreSerializer(serializers.ModelSerializer):
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ['id', 'client', 'number', 'name', 'cv', 'cadDate']
+        fields = ['id', 'client', 'number', 'name', 'cv', 'cadYear', 'cadMonth', 'wallet']
 
 class SaleSerializer(serializers.ModelSerializer):
     class Meta:
