@@ -65,9 +65,9 @@ class Devolution(models.Model):
 
 
 class Chat(models.Model):
-    admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
+    admin = models.ForeignKey(Admin, on_delete=models.CASCADE, blank=True, null=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    closed = models.BooleanField(default=False)
+    closed = models.BooleanField(default=False, blank=False)
 
 class Message(models.Model):
     content = models.TextField(blank=False)

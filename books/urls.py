@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import BookView, StoreView, NewsView, CardView, SaleView, DevolutionView, ReservationView, ChatView, MessageView
+from .views import BookView, StoreView, NewsView, CardView, SaleView, DevolutionView, ReservationView, ChatView, MessageView, UserChatsView
 
 router = routers.DefaultRouter()
 router.register(r'books', BookView, basename='books')
@@ -15,4 +15,5 @@ router.register(r'messages', MessageView, basename='messages')
 urlpatterns = [
     path('', include(router.urls)),
     path('news/', NewsView.as_view(), name="news"),
+    path('userchats/', UserChatsView.as_view(), name="userchats")
 ]

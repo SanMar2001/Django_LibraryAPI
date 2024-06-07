@@ -40,6 +40,13 @@ class ChatView(viewsets.ModelViewSet):
     serializer_class = ChatSerializer
     queryset = Chat.objects.all()
 
+class UserChatsView(APIView):
+    def post(self, request):
+        client_id = request.data.get('client')
+        queryset = Chat.objects.filter(client=client_id)
+        chats = list(queryset.values())
+        return JsonResponse(chats, safe=False)
+
 class MessageView(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
     queryset = Message.objects.all()
